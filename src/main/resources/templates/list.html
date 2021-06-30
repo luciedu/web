@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Gestion des employés</title>
+    <title>Gestion des Communes</title>
     <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/webjars/font-awesome/4.7.0/css/font-awesome.css"/>
     <script src="/webjars/jquery/3.5.1/jquery.min.js" type="application/javascript"></script>
@@ -50,7 +50,11 @@
                         <div>
                             
                             <span>
-                                Code Insee <a href="/?page=&amp;search=&amp;size=&amp;sortDirection=DESC&amp;sortProperty=codeInsee"><i class="fa fa-chevron-up"></i></a>
+                                <!-- on affiche en fonction de / recupérer les valeurs size, page, search
+                                a faire pour chaque colonne-->
+                                <!-- Code Insee <a th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codeInsee|"><i class="fa fa-chevron-down"></i></a>-->
+                                Code Insee <a th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=codeInsee|"><i class="fa fa-chevron-up"></i></a>
+                                <!-- <a th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codeInsee|">Code Insee</a>-->
                             </span>
                         </div>
                         
@@ -84,95 +88,15 @@
                 </thead>
                 <tbody>
                 
-                <tr>
-                    <th scope="row">01009</th>
-                    <td>01300</td>
-                    <td>Andert Et Condon</td>
-                    <td>45.7873565333</td>
-                    <td>5.65788307924</td>
-                    <td><a href="/communes/01009">Détail</a></td>
+                <tr th:each="commune : ${communes}">
+                    <th scope="row" th:text="${commune.codeInsee}">01009</th>
+                    <td th:text="${commune.codePostal}">01300</td>
+                    <td th:text="${commune.nom}">Andert Et Condon</td>
+                    <td th:text="${commune.latitude}">45.7873565333</td>
+                    <td th:text="${commune.longitude}">5.65788307924</td>
+                    <td><a th:href="|/communes/${commune.codeInsee}|">Détail</a></td>
                 </tr>
-                
-                <tr>
-                    <th scope="row">01011</th>
-                    <td>01100</td>
-                    <td>Apremont</td>
-                    <td>46.2054981558</td>
-                    <td>5.65781475272</td>
-                    <td><a href="/communes/01011">Détail</a></td>
-                </tr>
-                
-                <tr>
-                    <th scope="row">01012</th>
-                    <td>01110</td>
-                    <td>Aranc</td>
-                    <td>46.0015344029</td>
-                    <td>5.51130637511</td>
-                    <td><a href="/communes/01012">Détail</a></td>
-                </tr>
-                
-                <tr>
-                    <th scope="row">01021</th>
-                    <td>01480</td>
-                    <td>Ars Sur Formans</td>
-                    <td>45.9934611</td>
-                    <td>4.82199649494</td>
-                    <td><a href="/communes/01021">Détail</a></td>
-                </tr>
-                
-                <tr>
-                    <th scope="row">01023</th>
-                    <td>01570</td>
-                    <td>Asnieres Sur Saone</td>
-                    <td>46.3857281418</td>
-                    <td>4.88387478623</td>
-                    <td><a href="/communes/01023">Détail</a></td>
-                </tr>
-                
-                <tr>
-                    <th scope="row">01028</th>
-                    <td>01990</td>
-                    <td>Baneins</td>
-                    <td>46.1141214445</td>
-                    <td>4.90146475101</td>
-                    <td><a href="/communes/01028">Détail</a></td>
-                </tr>
-                
-                <tr>
-                    <th scope="row">01029</th>
-                    <td>01270</td>
-                    <td>Beaupont</td>
-                    <td>46.4288360203</td>
-                    <td>5.26003405676</td>
-                    <td><a href="/communes/01029">Détail</a></td>
-                </tr>
-                
-                <tr>
-                    <th scope="row">01031</th>
-                    <td>01100</td>
-                    <td>Bellignat</td>
-                    <td>46.2373497134</td>
-                    <td>5.6360052884</td>
-                    <td><a href="/communes/01031">Détail</a></td>
-                </tr>
-                
-                <tr>
-                    <th scope="row">01032</th>
-                    <td>01360</td>
-                    <td>Beligneux</td>
-                    <td>45.8591464826</td>
-                    <td>5.13989505865</td>
-                    <td><a href="/communes/01032">Détail</a></td>
-                </tr>
-                
-                <tr>
-                    <th scope="row">01033</th>
-                    <td>01200</td>
-                    <td>Valserhone</td>
-                    <td>46.1067901755</td>
-                    <td>5.83202736464</td>
-                    <td><a href="/communes/01033">Détail</a></td>
-                </tr>
+
                 </tbody>
             </table>
             <div class="row">
@@ -181,12 +105,7 @@
                         <label for="pageSizePicker">Taille des pages&nbsp;</label>
                         <select name="size" id="pageSizePicker" class="custom-select"
                                 onchange="javascript:this.form.submit()">
-                            <option value="5">5</option>
-                            <option value="10"
-                                    selected="selected">10</option>
-                            <option value="20">20</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
+                            <option th:each="taille : ${pageSizes}" th:value="${taille}" th:selected="${taille == size}">[[${taille}]]</option>
                         </select>
                         <input type="hidden" name="sortDirection" value="">
                         <input type="hidden" name="sortProperty" value="">
@@ -197,15 +116,22 @@
                 <div class="col-lg-2 text-center">
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
-                            
-                            <li class="page-item">
-                                <a class="page-link" href="/?page=-1&amp;search=&amp;size=&amp;sortDirection=&amp;sortProperty="
-                                >
+
+                            <!--désactivé pour la première page-->
+                            <li class="page-item disabled" th:if="${communes.isFirst()}">
+                                <a href="#" class="page-link">&laquo;</a>
+                            </li>
+
+                            <!--activé pour les autres pages-->
+                           <li class="page-item" th:unless="${communes.isFirst()}">
+                               <a class="page-link" th:href="|/?page=${page-1}&;search=${search}&;size=${size}&;sortDirection=&;sortProperty=|"
+                               >
                                     &laquo;
                                 </a>
                             </li>
-                            <li class="page-item">
-<!--                                <a href="#" class="page-link">Page <span th:text="${pageNumber}"></span></a>-->
+                            <li class="page-item" >
+<!--                                <a href="#" class="page-link">Page <span th:text="${pageNumber}"></span></a>
+utiliser le sequence de number-->
                                 <form action="/" method="get">
                                     <select name="page" id="pagePicker" class="custom-select"
                                             onchange="javascript:this.form.submit()">
@@ -233,18 +159,25 @@
                                         <option value="21">Page 22</option>
                                         <option value="22">Page 23</option>
                                     </select>
-                                    <input type="hidden" name="sortDirection" value="">
-                                    <input type="hidden" name="sortProperty" value="">
-                                    <input type="hidden" name="size" value="">
+                                    <input type="hidden" name="sortDirection" th:value="${sortDirection}">
+                                    <input type="hidden" name="sortProperty" th:value="${sortProperty}">
+                                    <input type="hidden" name="size" th:value="${size}">
                                     <input type="hidden" name="search" value="">
                                 </form>
                             </li>
-                            <li class="page-item">
-                                <a class="page-link" href="/?page=1&amp;search=&amp;size=&amp;sortDirection=&amp;sortProperty=">
+                            <!--désactivé pour la dernière page-->
+                            <li class="page-item disabled" th:if="${communes.isLast()}">
+                                <a href="#" class="page-link">
                                     &raquo;
                                 </a>
                             </li>
-                            
+                            <!--activé pour les autres pages-->
+                            <li class="page-item" th:unless="${communes.isLast()}">
+                                <a  class="page-link" th:href="|/?page=${page+1}&;search=${search}&;size=${size}&;sortDirection=&;sortProperty=|">
+                                    &raquo;
+                                </a>
+                            </li>
+
                         </ul>
                     </nav>
                 </div>

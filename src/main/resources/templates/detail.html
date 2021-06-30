@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Gestion des employés</title>
+    <title>Gestion des Communes</title>
     <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/webjars/font-awesome/4.7.0/css/font-awesome.css"/>
     <script src="/webjars/jquery/3.5.1/jquery.min.js" type="application/javascript"></script>
@@ -38,12 +38,12 @@
 
 <div>
     <div class="container">
-        <h2>Détail de la commune [[${commune.codeInsee}]], [[${commune.nom}]]</h2>
-        
+        <h2 th:unless="${newCommune}">Détail de la commune [[${commune.codeInsee}]], [[${commune.nom}]]</h2>
+        <h2 th:if="${newCommune}">Création d'une nouvelle commune</h2>
         <div class="row">
             <div class="col-sm-12 col-lg-6">
             
-                <form id="saveForm" action="/communes" method="post">
+                <form id="saveForm" th:action="${newCommune} ? '/communes' : ('/communes/' + ${commune.codeInsee})" method="post">
                     <div class="mt-2">
                         <div>
   <div class="form-group">
@@ -92,19 +92,19 @@
 </div>
                     <div class="col-sm-12 mt-2 text-center">
                         <input form="saveForm" class="btn btn-primary" type="submit" value="Enregistrer"/>
-                        <a href="/communes/01009/delete" class="btn btn-danger">Supprimer</a>
+                        <a th:unless="${newCommune}" th:href="|/communes/${commune.codeInsee}/delete|" class="btn btn-danger">Supprimer</a>
                     </div>
                 </form>
             </div>
-            <div class="col-lg-6">
+            <div th:unless="${newCommune}" class="col-lg-6">
                 <iframe width="650" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=5.557883079240001%2C45.2873565333%2C5.75788307924%2C46.2873565333&amp;layer=mapnik&amp;marker=45.7873565333%2C5.65788307924" style="border: 1px solid black"></iframe>
             </div>
-            <div class="col-sm-12 text-center mt-2">
+            <div th:unless="${newCommune}" class="col-sm-12 text-center mt-2">
 
-                <form action="/communes/01009" method="get" class="form-inline mb-2">
+                <form th:action="|/communes/${commune.codeInsee}|" method="get" class="form-inline mb-2">
                     <label for="perimetre">Communes dans un périmètre de&nbsp;</label>
                     <div class="input-group input-group-sm">
-                        <input type="number" name="perimetre" id="perimetre" class="form-control" value="10">
+                        <input type="number" name="perimetre" id="perimetre" class="form-control" th:value="${perimetre}">
                         <div class="input-group-append">
                             <span class="input-group-text">km</span>
                         </div>
@@ -112,36 +112,12 @@
                     <input class="btn btn-outline-primary btn-sm float-right" type="submit" value="Rechercher"/>
                 </form>
             </div>
-            <div class="col-sm-6">
+            <div th:unless="${newCommune}" class="col-sm-6">
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="/communes/01098">Chazey Bons (01510) <span class="badge badge-primary float-right">2 km</span></a></li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="/communes/01141">Cuzieu (01300) <span class="badge badge-primary float-right">4 km</span></a></li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="/communes/01227">Magnieu (01300) <span class="badge badge-primary float-right">5 km</span></a></li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="/communes/01234">Marignieu (01300) <span class="badge badge-primary float-right">5 km</span></a></li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="/communes/01162">Flaxieu (01350) <span class="badge badge-primary float-right">7 km</span></a></li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="/communes/01372">Saint Martin De Bavel (01510) <span class="badge badge-primary float-right">7 km</span></a></li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="/communes/01117">Conzieu (01300) <span class="badge badge-primary float-right">8 km</span></a></li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="/communes/01286">Parves Et Nattages (01300) <span class="badge badge-primary float-right">8 km</span></a></li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="/communes/01208">Lavours (01350) <span class="badge badge-primary float-right">9 km</span></a></li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="/communes/01233">Marchamp (01680) <span class="badge badge-primary float-right">9 km</span></a></li>
+                    <li class="list-group-item" th:each="communeProche : ${communesProches}">
+                        <a th:href="|/communes/${communeProche.codeInsee}|">[[${communeProche.nom}]] ([[${communeProche.codePostal}]])
+                            <span class="badge badge-primary float-right"> [[${communeProche.getDistance(commune.latitude, commune.longitude)}]] km</span></a>
+                    </li>
                 </ul>
             </div>
 
