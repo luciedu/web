@@ -1,40 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Gestion des Communes</title>
-    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/webjars/font-awesome/4.7.0/css/font-awesome.css"/>
-    <script src="/webjars/jquery/3.5.1/jquery.min.js" type="application/javascript"></script>
-    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.bundle.min.js" type="application/javascript"></script>
+    <head th:replace="fragments/header :: head('Liste des communes')"></head>
 </head>
 <body>
 
 <div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">Gestion des Communes</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li><a href="/" class="nav-link">Liste des communes <span class="badge badge-primary" th:text="${nbCommunes}" >25000</span></a></li>
-                <li></li>
-            </ul>
-
-            <form class="form-inline my-2 my-lg-0" role="search" action="/" method="GET">
-                <div class="form-group">
-                    <input name="search" value="" class="form-control" placeholder="Rechercher..." type="text">
-                </div>
-                <button type="submit" class="btn btn-outline-success ml-2 my-2 my-sm-0">Rechercher</button>
-            </form>
-            <a href="/login" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se connecter</a>
-            
-        </div>
-    </nav>
+    <div th:replace="fragments/header :: navbar"></div>
 </div>
-
 
 <div class="container">
     <h2>Liste des communes </h2>
@@ -47,17 +20,18 @@
                 <thead>
                 <tr>
                     <th scope="col">
-                        <div>
-                            
-                            <span>
-                                <!-- on affiche en fonction de / recupérer les valeurs size, page, search
-                                a faire pour chaque colonne-->
-                                <!-- Code Insee <a th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codeInsee|"><i class="fa fa-chevron-down"></i></a>-->
+                        <div th:if="${#strings.equals(param.codeInsee, 'codeInsee')}" th:switch="${sortDirection}" >
+
+                            <span th:case="'DESC'">
+                                Code Insee <a th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codeInsee|"><i class="fa fa-chevron-down"></i></a>
+                            </span>
+                            <span th:case="'*'">
                                 Code Insee <a th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=codeInsee|"><i class="fa fa-chevron-up"></i></a>
-                                <!-- <a th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codeInsee|">Code Insee</a>-->
+                             </span>
+                            <span th:unless="${sortDirection}">
+                                <a th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codeInsee|">Code Insee</a>
                             </span>
                         </div>
-                        
                     </th>
                     <th scope="col">
                         
@@ -95,6 +69,7 @@
                     <td th:text="${commune.latitude}">45.7873565333</td>
                     <td th:text="${commune.longitude}">5.65788307924</td>
                     <td><a th:href="|/communes/${commune.codeInsee}|">Détail</a></td>
+                    <td><a th:href="|/communes/${commune.codeInsee}/delete|" class="btn btn-danger">Supprimer</a></td>
                 </tr>
 
                 </tbody>
@@ -110,7 +85,8 @@
                         <input type="hidden" name="sortDirection" value="">
                         <input type="hidden" name="sortProperty" value="">
                         <input type="hidden" name="search" value="">
-                        <input type="hidden" name="page" value="0">
+                        <input type="hidden" name="page" th:value="${page}">
+                        <input type="hidden" name="size" th:value="${size}">
                     </form>
                 </div>
                 <div class="col-lg-2 text-center">
@@ -124,40 +100,16 @@
 
                             <!--activé pour les autres pages-->
                            <li class="page-item" th:unless="${communes.isFirst()}">
-                               <a class="page-link" th:href="|/?page=${page-1}&;search=${search}&;size=${size}&;sortDirection=&;sortProperty=|"
-                               >
+                               <a class="page-link" th:href="|/?page=${page-1}&;search=${search}&;size=${size}&;sortDirection=&;sortProperty=|">
                                     &laquo;
                                 </a>
                             </li>
                             <li class="page-item" >
-<!--                                <a href="#" class="page-link">Page <span th:text="${pageNumber}"></span></a>
-utiliser le sequence de number-->
+<!--                                <a href="#" class="page-link">Page <span th:text="${pageNumber}"></span></a>-->
                                 <form action="/" method="get">
                                     <select name="page" id="pagePicker" class="custom-select"
                                             onchange="javascript:this.form.submit()">
-                                        <option value="0" selected="selected">Page 1</option>
-                                        <option value="1">Page 2</option>
-                                        <option value="2">Page 3</option>
-                                        <option value="3">Page 4</option>
-                                        <option value="4">Page 5</option>
-                                        <option value="5">Page 6</option>
-                                        <option value="6">Page 7</option>
-                                        <option value="7">Page 8</option>
-                                        <option value="8">Page 9</option>
-                                        <option value="9">Page 10</option>
-                                        <option value="10">Page 11</option>
-                                        <option value="11">Page 12</option>
-                                        <option value="12">Page 13</option>
-                                        <option value="13">Page 14</option>
-                                        <option value="14">Page 15</option>
-                                        <option value="15">Page 16</option>
-                                        <option value="16">Page 17</option>
-                                        <option value="17">Page 18</option>
-                                        <option value="18">Page 19</option>
-                                        <option value="19">Page 20</option>
-                                        <option value="20">Page 21</option>
-                                        <option value="21">Page 22</option>
-                                        <option value="22">Page 23</option>
+                                        <option th:each="nbPage : ${#numbers.sequence(1,24,1)}" th:value="${nbPage} - 1" th:selected="${nbPage == page + 1}">Page [[${nbPage}]]</option>
                                     </select>
                                     <input type="hidden" name="sortDirection" th:value="${sortDirection}">
                                     <input type="hidden" name="sortProperty" th:value="${sortProperty}">

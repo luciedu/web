@@ -42,16 +42,18 @@ public class IndexController {
         }
         model.put("communes", communes);
         model.put("nbCommunes", communes.getTotalElements());
-        //model.put("pageSizes", Arrays.asList("5", "10", "20", "50", "100")); // #strings.equals(chaine1, chaine2)
         model.put("pageSizes", Arrays.asList(5, 10, 20, 50, 100)); // ${chaine1 == chaine2} => problème
         model.put("size", size);
         model.put("search", search);
+        model.put("sortDirection", sortDirection);
+        model.put("sortProperty", sortProperty);
 
 
         model.put("start", (((size * page) + size) - (size - 1)));
         model.put("end", (size * page) + size);
         model.put("page", page);
+
+
         return "list"; //Chemin du template (sans .html) à partir du dossier templates
     }
-
 }

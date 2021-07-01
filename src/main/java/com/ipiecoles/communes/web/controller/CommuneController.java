@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +34,12 @@ public class CommuneController {
             final ModelMap model)
     {
         Optional<Commune> commune = communeRepository.findById(codeInsee);
+        if(commune.isEmpty()){
+            //Gère une exception
+            throw new EntityNotFoundException("Impossible de trouver la commune de code INSEE " + codeInsee);
+            //model.put("message", "Impossible de trouver la commune de code INSEE " + codeInsee);
+            //return "error";//template error qui affiche un message d'erreur
+        }
 
         //Récupérer les communes proches de celle-ci
         model.put("commune", commune.get());
@@ -52,14 +60,20 @@ public class CommuneController {
         return "redirect:/communes/" + commune.getCodeInsee();
     }
 
-    @PostMapping(value ="/communes/{codeInsee}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/communes/{codeInsee}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String saveExistingCommune(
             Commune commune,
             @PathVariable String codeInsee,
-            final ModelMap model)
-    {
-        // Ajouter un certain nombre de contrôles...
+            final ModelMap model,
+            RedirectAttributes attributes){
+        //Ajouter un certain nombre de contrôles...
+        //communeRepository.findById() => model.put(error)  return "error";
         commune = communeRepository.save(commune);
+        //model.put...
+        //model.put("successMessage", "Commune sauvegardée !");//Côté template l'affichage du message
+        //return "detail";
+        attributes.addFlashAttribute("type", "success");
+        attributes.addFlashAttribute("message", "Enregistrement de la commune effectué !");
         return "redirect:/communes/" + commune.getCodeInsee();
     }
 
