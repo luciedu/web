@@ -3,17 +3,57 @@ package com.ipiecoles.communes.web.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.*;
 
 @Entity
 public class Commune {
+
+    public static final String REGEX_CODE_INSEE = "^[0-9]{1}[0-9AB]{1}[0-9]{3}$";
+    public static final String REGEX_CODE_POSTAL = "^[0-9]{5}$";
+    public static final String REGEX_NOM_COMMUNE = "^[A-Za-z-' ]+[0-9]{0,2}$";
+
     @Id
     @Column(length = 5)
+    // 5 chiffres (le deuxième caractère peut être A ou B)
+    // Obligatoire
+    @Pattern(regexp=REGEX_CODE_INSEE, message = "Le code INSEE doit contenir 5 chiffres (Le deuxième caractère peut être A ou B pour les communes de Corse)")
+    @NotNull
+    @NotBlank
     private String codeInsee;
+
+    // Taille max 50
+    // Obligatoire
+    // Lettre majuscules, minuscules, tirets, apostrophes, espaces et éventuellement terminé par 1 ou 2 chiffres (arrondissements)
+    @Size(max = 50, message = "Maximum 50 characters")
+    @NotBlank
+    @NotNull
+    @Pattern(regexp=REGEX_NOM_COMMUNE, message = "Le nom de la commune ne peut contenir que des lettres, des tirets, des espaces et éventuellement le numéro d'arrondissement")
     private String nom;
 
     @Column(length = 5)
+
+    // 5 chiffres
+    // Obligatoire
+    @Pattern(regexp = REGEX_CODE_POSTAL, message = "Le code postal doit contenir 5 chiffres")
+    @Size(max = 5, message = "doit être inférieur ou égal à 5")
+    @NotNull
+    @NotBlank
     private String codePostal;
+
+
+    // Intervalle
+    // Facultatif
+    @NotNull
+    @Min(value = -90, message = "doit être supérieur ou égal à -90")
+    @Max(value = 90, message = "doit être inférieur ou égal à 90")
     private Double latitude;
+
+
+    // Intervalle
+    // Facultatif
+    @NotNull
+    @Min(value = -180, message = "doit être supérieur ou égal à -180")
+    @Max(value = 180, message = "doit être inférieur ou égal à 180")
     private Double longitude;
 
     public Commune() {

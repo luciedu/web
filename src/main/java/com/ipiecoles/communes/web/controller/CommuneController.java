@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -51,33 +53,51 @@ public class CommuneController {
 
     @PostMapping(value ="/communes", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String saveNewCommune(
-            Commune commune,
+            @Valid Commune commune,
+            //Juste après le paramètre marqué @Valid
+            final BindingResult result,
             RedirectAttributes attributes,
             final ModelMap model)
     {
-        // Ajouter un certain nombre de contrôles...
-        commune = communeRepository.save(commune);
-        model.put("commune", commune);
-        attributes.addFlashAttribute("type", "success");
-        attributes.addFlashAttribute("message", "Enregistrement de la nouvelle commune effectué avec succès.");
-        return "redirect:/communes/" + commune.getCodeInsee();
+        //S'il n'y a pas d'erreurs de validation sur le paramètre commune
+        if (!result.hasErrors()){
+            commune = communeRepository.save(commune);
+            model.put("commune", commune);
+            attributes.addFlashAttribute("type", "success");
+            attributes.addFlashAttribute("message", "Enregistrement de la nouvelle commune effectué avec succès.");
+            return "redirect:/communes/" + commune.getCodeInsee();
+        }
+        //S'il y a des erreurs...
+        //Possibilité 1 : Rediriger l'utilisateur vers la page générique d'erreur
+        //Possibilité 2 : Laisse sur la même page en affichant les erreurs pour chaque champ
+        model.addAttribute("type", "danger");
+        model.addAttribute("message", "Erreur lors de la sauvegarde de la commune");
+        model.put("newCommune", true);
+        return "detail";
     }
 
     @PostMapping(value = "/communes/{codeInsee}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String saveExistingCommune(
-            Commune commune,
+            @Valid Commune commune,
+            //Juste après le paramètre marqué @Valid
+            final BindingResult result,
             @PathVariable String codeInsee,
             final ModelMap model,
-            RedirectAttributes attributes){
-        //Ajouter un certain nombre de contrôles...
-        //communeRepository.findById() => model.put(error)  return "error";
-        commune = communeRepository.save(commune);
-        //model.put...
-        //model.put("successMessage", "Commune sauvegardée !");//Côté template l'affichage du message
-        //return "detail";
-        attributes.addFlashAttribute("type", "success");
-        attributes.addFlashAttribute("message", "Enregistrement de la commune effectué !");
-        return "redirect:/communes/" + commune.getCodeInsee();
+            RedirectAttributes attributes) {
+        //S'il n'y a pas d'erreurs de validation sur le paramètre commune
+        if (!result.hasErrors()){
+            commune = communeRepository.save(commune);
+            attributes.addFlashAttribute("type", "success");
+            attributes.addFlashAttribute("message", "Enregistrement de la commune effectué !");
+            return "redirect:/communes/" + commune.getCodeInsee();
+        }
+        //S'il y a des erreurs...
+        //Possibilité 1 : Rediriger l'utilisateur vers la page générique d'erreur
+        //Possibilité 2 : Laisse sur la même page en affichant les erreurs pour chaque champ
+        model.addAttribute("type", "danger");
+        model.addAttribute("message", "Erreur lors de la sauvegarde de la commune");
+        // return "error";
+        return "detail";
     }
 
     @GetMapping("/communes/{codeInsee}/delete")
