@@ -1,9 +1,14 @@
 package com.ipiecoles.communes.web.security;
 
+import com.ipiecoles.communes.web.service.MyUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 // Annotation pour que Spring prenne en compte les éléments de configuration défénis
 @Configuration
@@ -13,6 +18,25 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 // WebSecurityConfiguration : classe définissant un certain nombre de comportements par défaut et de fonctionnalité autour de la sécurité.
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private MyUserDetailsService userDetailsService;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                // Service chargé d'effectuer les opérations d'authentification
+                .userDetailsService(userDetailsService)
+                // Définit l'algorithme de hachage pour les mots de passe
+                .passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        // Algo BCrypt
+        return null;
+    }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

@@ -39,9 +39,27 @@
 - [ ] Bonus : Gérer d'autres erreurs à travers votre application
 
 # Flash attributes
-- [ ] Afficher un message de succès lors de la sauvegarde d'une commune
-- [ ] Afficher un message de succès suite à la suppression d'une commune
-- [ ] Afficher un message de succès suite à la création d'une commune
+- [x] Afficher un message de succès lors de la sauvegarde d'une commune
+- [x] Afficher un message de succès suite à la suppression d'une commune
+- [x] Afficher un message de succès suite à la création d'une commune
 - [ ] Afficher un message d'erreur si on souhaite afficher les villes dans un périmètre supérieur à 20 km (cela n'utilise pas forcément les flash attributes)
 
 # Validation
+- [x] Mettre en place la validation avec les règles adéquates sur les champs code Insee (obligatoire, 5 chiffres et le deuxième caractère peut être A ou B), code postal (obligatoire, 5 chiffres), nom (obligatoire, taille max 50, regex `^[A-Za-z-' ]+[0-9]{0,2}$`, latitude et longitude (facultatives, mais lorsqu'elles sont renseignées, elles doivent être valides)
+- [x] Faire en sorte que les fomulaires affichent les messages d'erreurs pour chaque champs en cas d'erreur de validation (classe CSS is-valid ou is-invalid, + div de la classe invalid-feedback pour l'affichage des erreurs)
+- [ ] Bonus : Gérer correctement le formulaire de création (pas de coche verte ou de warning rouge à la création mais en cas d'erreur de création on réaffiche bien le formulaire avec les warnings pour les champs à problèmes).
+
+# Spring Security
+- [ ] Créer une entité User :
+    - id (clé primaire)
+    - userName
+    - email
+    - password
+    - name
+    - lastName
+    - active (booléen)
+    - Constructeurs, toString.... + règles de validation auxquelles vous pensez (sauf pour le mot de passe)
+- [ ] Créer une entité Role :
+    - id (clé primaire)
+    - role (String)
+- [ ] Mettre en place un ManyToMany entre User et Role
