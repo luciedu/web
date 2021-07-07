@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
 </head>
 <body>
@@ -73,8 +73,9 @@
     <td th:text="${commune.nom}">Andert Et Condon</td>
     <td th:text="${commune.latitude}">45.7873565333</td>
     <td th:text="${commune.longitude}">5.65788307924</td>
-    <td><a th:href="|/communes/${commune.codeInsee}|">Détail</a></td>
-    <td><a th:href="|/communes/${commune.codeInsee}/delete|" class="btn btn-danger">Supprimer</a></td>
+    <td><a sec:authorize="hasRole('USER')" th:href="|/communes/${commune.codeInsee}|">Détail</a></td>
+    <td><a sec:authorize="hasRole('ADMIN')" th:href="|/communes/${commune.codeInsee}|">Détail</a></td>
+    <td><a sec:authorize="hasRole('ADMIN')" th:href="|/communes/${commune.codeInsee}/delete|" class="btn btn-danger">Supprimer</a></td>
 </tr>
 
 <!-- Fragment pagination elements -->

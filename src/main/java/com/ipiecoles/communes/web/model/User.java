@@ -1,6 +1,12 @@
 package com.ipiecoles.communes.web.model;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 import java.util.Set;
 
@@ -12,19 +18,29 @@ public class User {
     private Integer id;
 
     @Column(nullable = false, unique = true)
+    @NotBlank
+    @Length(min = 5, max =50)
     private String userName;
 
+    @Email
+    @NotBlank
     private String email;
 
+    @Length(min = 8)
+    @NotBlank
     private String password;
 
+    @NotBlank
+    @Length(max = 50)
     private String name;
 
+    @NotBlank
+    @Length(max = 50)
     private String lastName;
 
     private Boolean active;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = CascadeType.MERGE/*, fetch = FetchType.EAGER*/)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 

@@ -50,16 +50,27 @@
 - [ ] Bonus : Gérer correctement le formulaire de création (pas de coche verte ou de warning rouge à la création mais en cas d'erreur de création on réaffiche bien le formulaire avec les warnings pour les champs à problèmes).
 
 # Spring Security
-- [ ] Créer une entité User :
-    - id (clé primaire)
-    - userName
-    - email
-    - password
-    - name
-    - lastName
-    - active (booléen)
-    - Constructeurs, toString.... + règles de validation auxquelles vous pensez (sauf pour le mot de passe)
-- [ ] Créer une entité Role :
-    - id (clé primaire)
-    - role (String)
-- [ ] Mettre en place un ManyToMany entre User et Role
+- [x] Créer une entité User :
+  - id (clé primaire)
+  - userName
+  - email
+  - password
+  - name
+  - lastName
+  - active (booléen)
+  - Constructeurs, toString.... + règles de validation auxquelles vous pensez (sauf pour le mot de passe)
+- [x] Créer une entité Role :
+  - id (clé primaire)
+  - role (String)
+- [x] Mettre en place un ManyToMany entre User et Role
+- [x] Mettre en place le paramétrage de sécurité avec authentification par formulaire
+- [x] Mettre en place la page de connexion
+- [ ] Restreindre l'accès aux pages suivantes :
+  - Liste des communes et recherche accessible à tous
+  - Détails des communes accessible uniquement aux utilisateurs connectés
+  - Création, Modification et suppression d'une commune accessible uniquement aux utilisateurs ADMIN
+- [ ] Affiner l'affichage au niveau du template pour :
+  - Ne pas afficher le bouton Créer une nouvelle commune pour les utilisateurs non admin
+  - Ne pas afficher le bouton Supprimer et le bouton Enregistrer la commune pour les utilisateurs non admin
+  - Afficher un lien Se connecter dans le menu lorsqu'on n'est pas connecté, un bouton Se déconnecter lorsqu'on est connecté
+- [ ] Gérer les messages de connexion réussie et de connexion échouée

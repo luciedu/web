@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head th:fragment="head(title)">
     <meta charset="UTF-8">
@@ -29,10 +29,22 @@
                     </div>
                     <button type="submit" class="btn btn-outline-success ml-2 my-2 my-sm-0">Rechercher</button>
                 </form>
+                <div sec:authorize="isAnonymous()">
                 <a href="/login" class="btn btn-outline-success ml-2 my-2 my-sm-0">Se connecter</a>
+                </div>
 
-        </div>
-    </nav>
+                <div sec:authorize="isAuthenticated()">
+               <form th:action="@{/logout}" method="post">
+                   <input class="btn btn-outline-success ml-2 my-2 my-sm-0" type="submit" value="Se déconnecter" />
+               </form>
+               </div>
+
+                <div sec:authorize="isAnonymous()">
+                <a href="/register" class="btn btn-outline-success ml-2 my-2 my-sm-0">S'enregistrer</a>
+                </div>
+
+       </div>
+   </nav>
 </div>
 </body>
 </html>

@@ -9,10 +9,10 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String role;
 
-    public Role(int id, String role) {
+    public Role(Integer id, String role) {
         this.id = id;
         this.role = role;
     }
@@ -25,7 +25,7 @@ public class Role {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
