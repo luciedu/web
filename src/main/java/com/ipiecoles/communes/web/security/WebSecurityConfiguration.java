@@ -82,6 +82,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 //Gestion de la déconnexion
                 .and().logout()
+                    .permitAll()
                     //Où va-t-on lorsque l'on souhaite se déconnecter ?
                     .logoutUrl("/logout") //Défaut : /logout
                     //Où va-t-on une fois la déconnexion effectuée

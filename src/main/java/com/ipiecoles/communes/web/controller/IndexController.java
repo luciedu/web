@@ -27,12 +27,13 @@ public class IndexController {
             @RequestParam(defaultValue = "10") Integer size,
             @RequestParam(defaultValue = "codeInsee") String sortProperty,
             @RequestParam(defaultValue = "ASC") String sortDirection,
-            @RequestParam(required = false) String search,
+            @RequestParam(required = false, defaultValue = "") String search,
             final ModelMap model) {
 
         //Constituer un PageRequest
         PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.fromString(sortDirection), sortProperty);
         Page<Commune> communes;
+
         if(search == null || search.isEmpty()){
             //Appeler findAll si search est null
             communes = communeRepository.findAll(pageRequest);
@@ -40,6 +41,7 @@ public class IndexController {
             //Appeler findByNomContainingIgnoreCase si search n'est pas null
             communes = communeRepository.findByNomContainingIgnoreCase(search, pageRequest);
         }
+
         model.put("communes", communes);
         model.put("nbCommunes", communes.getTotalElements());
         model.put("pageSizes", Arrays.asList(5, 10, 20, 50, 100)); // ${chaine1 == chaine2} => problème

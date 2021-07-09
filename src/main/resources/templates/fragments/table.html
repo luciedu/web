@@ -8,24 +8,24 @@
     <th scope="col">
         <div  th:if="${#strings.equals(sortProperty, 'codeInsee')}" th:switch="${sortDirection}">
             Code Insee
-            <a th:case="ASC" th:href="|/?page=${page}&search=&size=${size}&sortDirection=DESC&sortProperty=codeInsee|"><i class="fa fa-chevron-down"></i></a>
-            <a th:case="DESC" th:href="|/?page=${page}&search=&size=${size}&sortDirection=ASC&sortProperty=codeInsee|"><i class="fa fa-chevron-up"></i></a>
+            <a th:case="ASC" th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=codeInsee|"><i class="fa fa-chevron-down"></i></a>
+            <a th:case="DESC" th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codeInsee|"><i class="fa fa-chevron-up"></i></a>
         </div>
         <div  th:unless="${#strings.equals(sortProperty, 'codeInsee')}">
             Code Insee
-            <a th:href="|/?page=${page}&search=&size=${size}&sortDirection=ASC&sortProperty=codeInsee|"><i class="fa fa-chevron-up"></i></a>
+            <a th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codeInsee|"><i class="fa fa-chevron-up"></i></a>
         </div>
     </th>
 
     <th scope="col">
         <div th:if="${#strings.equals(sortProperty, 'codePostal')}" th:switch="${sortDirection}">
             Code Postal
-            <a th:case="ASC" th:href="|/?page=${page}&search=&size=${size}&sortDirection=DESC&sortProperty=codePostal|"> <i class="fa fa-chevron-down"></i></a>
-            <a th:case="DESC" th:href="|/?page=${page}&search=&size=${size}&sortDirection=ASC&sortProperty=codePostal|"> <i class="fa fa-chevron-up"></i></a>
+            <a th:case="ASC" th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=codePostal|"> <i class="fa fa-chevron-down"></i></a>
+            <a th:case="DESC" th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codePostal|"> <i class="fa fa-chevron-up"></i></a>
         </div>
         <div  th:unless="${#strings.equals(sortProperty, 'codePostal')}">
             Code Postal
-            <a th:href="|/?page=${page}&search=&size=${size}&sortDirection=ASC&sortProperty=codePostal|"><i class="fa fa-chevron-up"></i></a>
+            <a th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=codePostal|"><i class="fa fa-chevron-up"></i></a>
         </div>
     </th>
 
@@ -33,36 +33,36 @@
 
         <div th:if="${#strings.equals(sortProperty, 'nom')}" th:switch="${sortDirection}">
             Nom
-            <a th:case="ASC" th:href="|/?page=${page}&search=&size=${size}&sortDirection=DESC&sortProperty=nom|"><i class="fa fa-chevron-down"></i></a>
-            <a th:case="DESC" th:href="|/?page=${page}&search=&size=${size}&sortDirection=ASC&sortProperty=nom|"><i class="fa fa-chevron-up"></i></a>
+            <a th:case="ASC" th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=nom|"><i class="fa fa-chevron-down"></i></a>
+            <a th:case="DESC" th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=nom|"><i class="fa fa-chevron-up"></i></a>
         </div>
         <div  th:unless="${#strings.equals(sortProperty, 'nom')}">
             Nom
-            <a th:href="|/?page=${page}&search=&size=${size}&sortDirection=ASC&sortProperty=nom|"><i class="fa fa-chevron-up"></i></a>
+            <a th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=nom|"><i class="fa fa-chevron-up"></i></a>
         </div>
     </th>
     <th scope="col">
 
         <div th:if="${#strings.equals(sortProperty, 'latitude')}" th:switch="${sortDirection}">
             Latitude
-            <a th:case="ASC" th:href="|/?page=${page}&search=&size=${size}&sortDirection=DESC&sortProperty=latitude|"> <i class="fa fa-chevron-down"></i></a>
-            <a th:case="DESC" th:href="|/?page=${page}&search=&size=${size}&sortDirection=ASC&sortProperty=latitude|"> <i class="fa fa-chevron-up"></i></a>
+            <a th:case="ASC" th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=latitude|"> <i class="fa fa-chevron-down"></i></a>
+            <a th:case="DESC" th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=latitude|"> <i class="fa fa-chevron-up"></i></a>
         </div>
         <div  th:unless="${#strings.equals(sortProperty, 'latitude')}">
             Latitude
-            <a th:href="|/?page=${page}&search=&size=${size}&sortDirection=ASC&sortProperty=latitude|"><i class="fa fa-chevron-up"></i></a>
+            <a th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=latitude|"><i class="fa fa-chevron-up"></i></a>
         </div>
     </th>
     <th scope="col">
 
         <div th:if="${#strings.equals(sortProperty, 'longitude')}" th:switch="${sortDirection}">
             Longitude
-            <a th:case="ASC" th:href="|/?page=${page}&search=&size=${size}&sortDirection=DESC&sortProperty=longitude|"><i class="fa fa-chevron-down"></i></a>
-            <a th:case="DESC" th:href="|/?page=${page}&search=&size=${size}&sortDirection=ASC&sortProperty=longitude|"> <i class="fa fa-chevron-up"></i></a>
+            <a th:case="ASC" th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=DESC&sortProperty=longitude|"><i class="fa fa-chevron-down"></i></a>
+            <a th:case="DESC" th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=longitude|"> <i class="fa fa-chevron-up"></i></a>
         </div>
         <div  th:unless="${#strings.equals(sortProperty, 'longitude')}">
             Longitude
-            <a th:href="|/?page=${page}&search=&size=${size}&sortDirection=ASC&sortProperty=longitude|"><i class="fa fa-chevron-up"></i></a>
+            <a th:href="|/?page=${page}&search=${search}&size=${size}&sortDirection=ASC&sortProperty=longitude|"><i class="fa fa-chevron-up"></i></a>
         </div>
     </th>
     <th scope="col"></th>
@@ -97,7 +97,7 @@
             </select>
             <input type="hidden" name="sortDirection" value="">
              <input type="hidden" name="sortProperty" value="">
-             <input type="hidden" name="search" value="">
+             <input type="hidden" name="search" th:value="${search}">
              <input type="hidden" name="page" th:value="${page}">
              <input type="hidden" name="size" th:value="${size}">
          </form>
@@ -113,8 +113,8 @@
 
                 <!--activé pour les autres pages-->
                 <li class="page-item" th:unless="${communes.isFirst()}">
-                    <a class="page-link" th:href="|/?page=${page-1}&;search=${search}&;size=${size}&;sortDirection=${sortDirection};sortProperty=${sortProperty}|">
-                        &laquo;
+                    <a class="page-link" th:href="|/?page=${page-1}&search=${search}&size=${size}&sortDirection=${sortDirection}&sortProperty=${sortProperty}|">
+                    &laquo;
                     </a>
                 </li>
                 <li class="page-item" >
@@ -151,7 +151,7 @@
                         </select>
                         <input type="hidden" name="sortDirection" th:value="${sortDirection}">
                         <input type="hidden" name="sortProperty" th:value="${sortProperty}">
-                        <input type="hidden" name="search" value="">
+                        <input type="hidden" name="search" th:value="${search}">
                         <input type="hidden" name="page" th:value="${page}">
                         <input type="hidden" name="size" th:value="${size}">
                     </form>
@@ -164,8 +164,8 @@
                 </li>
                 <!--activé pour les autres pages-->
                 <li class="page-item" th:unless="${communes.isLast()}">
-                    <a class="page-link" th:href="|/?page=${page+1}&;search=${search}&;size=${size}&;sortDirection=${sortDirection}&;sortProperty=${sortProperty}|">
-                        &raquo;
+                    <a class="page-link" th:href="|/?page=${page+1}&search=${search}&size=${size}&sortDirection=${sortDirection}&sortProperty=${sortProperty}|">
+                    &raquo;
                     </a>
                 </li>
 

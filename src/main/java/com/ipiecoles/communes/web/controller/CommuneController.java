@@ -48,6 +48,7 @@ public class CommuneController {
         model.put("perimetre", perimetre);
         model.put("communesProches", this.findCommunesProches(commune.get(), perimetre));
         model.put("newCommune", false);
+
         return "detail";
     }
 
@@ -133,7 +134,14 @@ public class CommuneController {
      * @param perimetreEnKm Le périmètre de recherche en kilomètre
      * @return La liste des communes triées de la plus proche à la plus lointaine
      */
-    private List<Commune> findCommunesProches(Commune commune, Integer perimetreEnKm) {
+    private List<Commune> findCommunesProches(Commune commune,
+                                              Integer perimetreEnKm) {
+
+
+        if (perimetreEnKm > 20) {
+            throw new IllegalArgumentException("Le périmètre doit être égal ou inférieur à 20 KM.");
+        }
+
         Double latMin, latMax, longMin, longMax, degreLat, degreLong;
         //1 degré latitude = 111km, 1 degré longitude = 77km
         degreLat = perimetreEnKm/DEGRE_LAT_KM;
@@ -144,9 +152,11 @@ public class CommuneController {
         longMax = commune.getLongitude() + degreLong;
         List<Commune> communesProches = communeRepository.findByLatitudeBetweenAndLongitudeBetween(latMin, latMax, longMin, longMax);
         ;
+
         return communesProches.stream().
                 filter(commune1 -> !commune1.getNom().equals(commune.getNom()) && commune1.getDistance(commune.getLatitude(), commune.getLongitude()) <= perimetreEnKm).
                 sorted(Comparator.comparing(o -> o.getDistance(commune.getLatitude(), commune.getLongitude()))).
                 collect(Collectors.toList());
     }
+
 }

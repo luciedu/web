@@ -19,4 +19,12 @@ public class GlobalExceptionHandler {
         modelAndView.addObject("message", e.getMessage());
         return modelAndView;
     }
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ModelAndView handleIllegalArgumentException(IllegalArgumentException e){
+        ModelAndView modelAndView = new ModelAndView("error");
+        modelAndView.addObject("message", e.getMessage());
+        return  modelAndView;
+    }
+
 }
