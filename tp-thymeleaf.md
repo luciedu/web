@@ -2,12 +2,13 @@
 
 - [x] Le bouton "Nouvelle commune" dirige l'utilisateur vers l'écran de création de commune
 - [ ] Le tableau présente les résultats paginés de toutes les communes ou celles correspondant à la recherche effectuée
-- [ ] Il est possible de trier par code insee, code postal, nom, latitude et longitude, de manière ascendante, descendante. Ajuster l'affichage de chacune des colonnes en fonction des critères de tri
+- [x] Il est possible de trier par code insee, code postal, nom, latitude et longitude, de manière ascendante, descendante. Ajuster l'affichage de chacune des colonnes en fonction des critères de tri
 - [x] Chaque ligne commune possède un lien Détail permettant de consulter les détails d'une commune
 - [x] Il est possible de sélectionner parmi une liste (5, 10, 20, 50, 100) la taille des pages. Lorsque l'on sélectionne une taille, la page est rechargée. Il est important que la valeur sélectionnée dans la liste déroulante soit celle spécifiée dans l'url (attribut selected=true dans l'option)
 - [x] Même travail avec la sélection de la page (utiliser #numbers.sequence pour générer la liste côté Thymeleaf)
-- [ ] Les boutons précédent et suivant doivent être opérationnels et conserver les critères de tri et de recherche. Précédent est désactivé en première page. Suivant est désactivé en dernière page.
+- [ ] Les boutons précédent et suivant doivent être opérationnels et conserver les critères de tri et de recherche. Précédent est désactivé en première page. Suivant est désactivé en dernière page. 
 - [ ] On affiche la position des résultats "Affichage des communes X à Y sur un total de Z". Attention au total qui est soit égal au nombre total de communes un base, ou égal ou nombre de résultats de la recherche
+- [x] Bonus : Ajouter un bouton Supprimer à côté du bouton Détail sur chaque ligne
 
 # Ecran détail
 - [x] Le titre est soit "Détail de la communes CODEINSEE, NOM" si c'est une modification ou "Création d'une nouvelle commune" si c'est une création
@@ -24,17 +25,17 @@
 
 # Fragments
 - [X] Créer un fragment pour la balise `head` et pour la `navbar`. Appeler ces fragments dans les différentes pages pour supprimer la duplication.
-- [ ] Créer un fragment pour les colonnes de la liste
+- [x] Créer un fragment pour les colonnes de la liste
 - [ ] Bonus : Créer un fragment pour l'architecture de la page
 - [ ] Bonus : Créer un fragment pour les champs de formulaire
-- [ ] Bonus : Créer un fragment pour les éléments de pagination
-- [ ] Bonus : Créer un fragment pour le tableau
+- [x] Bonus : Créer un fragment pour les éléments de pagination
+- [x] Bonus : Créer un fragment pour le tableau
 
 # Gestion des erreurs
 - [X] Créer un template `error.html` permettant d'afficher de manière générique les erreurs de votre application
 - [X] Créer le `GlobalExceptionHandler` permettant la gestion globale des exceptions levées dans vos contrôleurs
-- [ ] Pour le GET /communes/CODEINSEE, lever une `EntityNotFoundException` lorsque le code INSEE n'existe pas en base et la gérer dans votre `GlobalExceptionHandler` avec une 404
-- [ ] Idem pour le GET /communes/CODEINSEE/delete
+- [x] Pour le GET /communes/CODEINSEE, lever une `EntityNotFoundException` lorsque le code INSEE n'existe pas en base et la gérer dans votre `GlobalExceptionHandler` avec une 404
+- [x] Idem pour le GET /communes/CODEINSEE/delete
 - [ ] Dans l'affichage de la liste des communes, contrôler la valeur des paramètres `page`, `size`, `sortProperty` et `sortDirection`, lever une `IllegalArgumentException` lorqu'un des paramètres est incorrect et la gérer dans votre `GlobalExceptionHandler` avec une 400
 - [ ] Bonus : Gérer d'autres erreurs à travers votre application
 
@@ -65,7 +66,7 @@
 - [x] Mettre en place un ManyToMany entre User et Role
 - [x] Mettre en place le paramétrage de sécurité avec authentification par formulaire
 - [x] Mettre en place la page de connexion
-- [ ] Restreindre l'accès aux pages suivantes :
+- [x] Restreindre l'accès aux pages suivantes :
   - Liste des communes et recherche accessible à tous
   - Détails des communes accessible uniquement aux utilisateurs connectés
   - Création, Modification et suppression d'une commune accessible uniquement aux utilisateurs ADMIN

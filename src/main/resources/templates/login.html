@@ -14,8 +14,8 @@
             </button>
         </div>
         <h2>Se connecter</h2>
-        <div th:if="${param.error}">
-            Utilisateur ou mot de passe invalide !
+        <div th:if="${param.error}" class="mt-1 alert alert-dismissible fade show alert" role="alert" >
+            <span> Utilisateur ou mot de passe invalide ! </span>
         </div>
         <!--Formulaire avec attribut action /login avec méthode post-->
         <form th:action="@{/login}" method="post">

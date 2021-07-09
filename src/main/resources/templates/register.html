@@ -22,7 +22,7 @@
             <!--        Champ name-->
             <div class="form-group">
                 <label for="name">Prénom</label>
-                <input type="text" th:value="${user.name}" th:class="|form-control ${#fields.hasErrors('user.name') ? 'is-invalid' : 'is-valid'}|" id="name" name="name" placeholder="Prénom" class="form-control">
+                <input type="text" th:value="${user.name}" th:class="|form-control ${#fields.hasErrors('user.name') ? 'is-invalid' : 'is-valid'}|" id="name" name="name" placeholder="Prénom">
 
             <div class="invalid-feedback">
                 <ul>
@@ -34,7 +34,7 @@
             <!--        Champ lastname-->
             <div class="form-group">
                 <label for="lastName">Nom</label>
-                <input type="text" th:value="${user.lastName}" th:class="|form-control ${#fields.hasErrors('user.lastName') ? 'is-invalid' : 'is-valid'}|" id="lastName" name="lastName" placeholder="Nom" class="form-control">
+                <input type="text" th:value="${user.lastName}" th:class="|form-control ${#fields.hasErrors('user.lastName') ? 'is-invalid' : 'is-valid'}|" id="lastName" name="lastName" placeholder="Nom">
 
             <div class="invalid-feedback">
                 <ul>
@@ -46,7 +46,7 @@
             <!--        Champ email-->
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" th:value="${user.email}" th:class="|form-control ${#fields.hasErrors('user.email') ? 'is-invalid' : 'is-valid'}|" id="email" name="email" placeholder="Email" class="form-control">
+                <input type="email" th:value="${user.email}" th:class="|form-control ${#fields.hasErrors('user.email') ? 'is-invalid' : 'is-valid'}|" id="email" name="email" placeholder="Email">
 
             <div class="invalid-feedback">
                 <ul>
@@ -58,7 +58,7 @@
             <!--        Champ username-->
             <div class="form-group">
                 <label for="username">Nom d'utilisateur</label>
-                <input type="text" th:value="${user.userName}" th:class="|form-control ${#fields.hasErrors('user.userName') ? 'is-invalid' : 'is-valid'}|" id="userName" name="userName" placeholder="Nom d'utilisateur" class="form-control">
+                <input type="text" th:value="${user.userName}" th:class="|form-control ${#fields.hasErrors('user.userName') ? 'is-invalid' : 'is-valid'}|" id="userName" name="userName" placeholder="Nom d'utilisateur">
 
             <div class="invalid-feedback">
                 <ul>
@@ -70,7 +70,7 @@
             <!--        Champ password-->
             <div class="form-group">
                 <label for="password">Mot de passe</label>
-                <input type="password" th:value="${user.password}" th:class="|form-control ${#fields.hasErrors('user.password') ? 'is-invalid' : 'is-valid'}|" placeholder="Mot de passe" id="password" name="password" class="form-control">
+                <input type="password" th:value="${user.password}" th:class="|form-control ${#fields.hasErrors('user.password') ? 'is-invalid' : 'is-valid'}|" placeholder="Mot de passe" id="password" name="password">
 
             <div class="invalid-feedback">
                 <ul>
