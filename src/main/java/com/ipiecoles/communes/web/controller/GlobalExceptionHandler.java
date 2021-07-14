@@ -10,7 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.persistence.EntityNotFoundException;
 
 @ControllerAdvice// Permet à cette classe de "catcher" les exceptions
+
 // levées par les contrôleurs
+// Erreur 404
 public class GlobalExceptionHandler {
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -19,6 +21,8 @@ public class GlobalExceptionHandler {
         modelAndView.addObject("message", e.getMessage());
         return modelAndView;
     }
+
+// Erreur 400
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ModelAndView handleIllegalArgumentException(IllegalArgumentException e){
