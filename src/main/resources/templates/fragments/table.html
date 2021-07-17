@@ -88,12 +88,6 @@
             <select name="size" id="pageSizePicker" class="custom-select"
                     onchange="javascript:this.form.submit()">
                 <option th:each="taille : ${pageSizes}" th:value="${taille}" th:selected="${taille == size}">[[${taille}]]</option>
-                <!-- La ligne précédente permet de ne plus devoir taper chaque ligne d'option ci-dessous
-                <option value="5">5</option>
-                <option value="10" selected="selected">10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-                <option value="100">100</option> -->
             </select>
             <input type="hidden" name="sortDirection" value="">
              <input type="hidden" name="sortProperty" value="">
@@ -118,36 +112,10 @@
                     </a>
                 </li>
                 <li class="page-item" >
-                    <!-- <a href="#" class="page-link">Page <span th:text="${pageNumber}"></span></a>
-                    utiliser le sequence de number-->
                     <form action="/" method="get">
                         <select name="page" id="pagePicker" class="custom-select"
                                 onchange="javascript:this.form.submit()">
-                            <option th:each="nbPage : ${#numbers.sequence(1,24,1)}" th:value="${nbPage} - 1" th:selected="${nbPage == page + 1}">Page [[${nbPage}]]</option>
-                            <!-- La ligne précédente permet de ne plus devoir taper chaque ligne d'option ci-dessous
-                            <option value="0" selected="selected">Page 1</option>
-                            <option value="1">Page 2</option>
-                            <option value="2">Page 3</option>
-                            <option value="3">Page 4</option>
-                            <option value="4">Page 5</option>
-                            <option value="5">Page 6</option>
-                            <option value="6">Page 7</option>
-                            <option value="7">Page 8</option>
-                            <option value="8">Page 9</option>
-                            <option value="9">Page 10</option>
-                            <option value="10">Page 11</option>
-                            <option value="11">Page 12</option>
-                            <option value="12">Page 13</option>
-                            <option value="13">Page 14</option>
-                            <option value="14">Page 15</option>
-                            <option value="15">Page 16</option>
-                            <option value="16">Page 17</option>
-                            <option value="17">Page 18</option>
-                            <option value="18">Page 19</option>
-                            <option value="19">Page 20</option>
-                            <option value="20">Page 21</option>
-                            <option value="21">Page 22</option>
-                            <option value="22">Page 23</option> -->
+                            <option th:each="nbPage : ${#numbers.sequence(1,lastpage,1)}" th:value="${nbPage} - 1" th:selected="${nbPage == page + 1}">Page [[${nbPage}]]</option>
                         </select>
                         <input type="hidden" name="sortDirection" th:value="${sortDirection}">
                         <input type="hidden" name="sortProperty" th:value="${sortProperty}">

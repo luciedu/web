@@ -66,11 +66,15 @@ public class IndexController {
         model.put("search", search);
         model.put("sortDirection", sortDirection);
         model.put("sortProperty", sortProperty);
+        model.put("page", page);
 
-
+        // calcul pour le nombre de commune par rapport à la taille des pages choisie
         model.put("start", (((size * page) + size) - (size - 1)));
         model.put("end", (size * page) + size);
-        model.put("page", page);
+
+
+        // calcul qui permet d'avoir le nombre de page en fonction de la taille des pages choisie
+        model.put("lastpage", communes.getTotalElements() / size + 1 );
 
 
         return "list"; //Chemin du template (sans .html) à partir du dossier templates
